@@ -15,6 +15,6 @@ public class Main {
         comment.setText("Demo Comment");
         comment.setAuthor("Fosi");
 
-        service.publishComment(comment);
+        System.out.println(service.publishComment(comment));
     }
 }
