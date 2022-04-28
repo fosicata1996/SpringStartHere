@@ -9,7 +9,6 @@ public class Person {
 
     private Parrot parrot;
 
-    @Autowired
     public Person(Parrot parrot) {
         this.parrot = parrot;
     }
@@ -26,6 +25,7 @@ public class Person {
         return parrot;
     }
 
+    @Autowired
     public void setParrot(Parrot parrot) {
         this.parrot = parrot;
     }
