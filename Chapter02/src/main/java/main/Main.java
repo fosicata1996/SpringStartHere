@@ -3,6 +3,8 @@ package main;
 import config.ProjectConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.function.Supplier;
+
 public class Main {
     public static void main(String[] args) {
         var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
@@ -21,5 +23,19 @@ public class Main {
 
         Integer n = context.getBean(Integer.class);
         System.out.println(n);
+
+
+        Parrot parrot = new Parrot();
+        parrot.setName("New Parrot");
+
+        Supplier<Parrot> parrotSupplier = () -> parrot;
+
+        context.registerBean("parrot1",
+                Parrot.class,
+                parrotSupplier,
+                beanConfig -> beanConfig.setPrimary(true));
+
+        Parrot newParrot = (Parrot) context.getBean("parrot1");
+        System.out.println(newParrot.getName());
     }
 }
