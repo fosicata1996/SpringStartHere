@@ -1,5 +1,6 @@
 package aspects;
 
+import entities.Comment;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,13 +23,17 @@ public class LoggingAspect {
                 + " with parameters " + Arrays.asList(arguments)
                 + " will execute");
 
+        Comment comment = new Comment();
+        comment.setText("Some other text");
+        Object[] newArguments = {comment};
+
         logger.info("Before");
-        Object returnedByMethod = joinPoint.proceed();
+        Object returnedByMethod = joinPoint.proceed(newArguments);
         logger.info("After");
 
         logger.info("Method executed and returned " + returnedByMethod);
 
-        return returnedByMethod;
+        return "FAILED";
     }
 
 }
