@@ -1,39 +1,28 @@
 package aspects;
 
-import entities.Comment;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 @Aspect
+@Order(2)
 @Component
 public class LoggingAspect {
 
     private static final Logger logger = Logger.getLogger(LoggingAspect.class.getName());
 
     @Around("@annotation(ToLog)")
-    public void log(ProceedingJoinPoint joinPoint) throws Throwable {
-        logger.info(" --------------------- ");
-        String methodName = joinPoint.getSignature().getName();
-        Object[] arguments = joinPoint.getArgs();
-        logger.info("Method " + methodName
-                + " with parameters " + Arrays.asList(arguments)
-                + " will execute");
+    public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
+        logger.info("------------- Before");
+        Object returnedByMethod = joinPoint.proceed();
+        logger.info("------------- After");
 
-        Comment comment = new Comment();
-        comment.setText("Some other text");
-        Object[] newArguments = {comment};
+        return returnedByMethod;
 
-        logger.info("Before");
-        Object returnedByMethod = joinPoint.proceed(newArguments);
-        logger.info("After");
-
-        logger.info("Method executed and returned " + returnedByMethod);
-        logger.info(" --------------------- ");
     }
 
 }

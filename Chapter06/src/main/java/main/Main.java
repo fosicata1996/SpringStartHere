@@ -15,8 +15,8 @@ public class Main {
         comment.setText("Demo Comment");
         comment.setAuthor("Fosi");
 
-        service.publishComment(comment);
+//        service.publishComment(comment);
         service.deleteComment(comment);
-        service.editComment(comment);
+//        service.editComment(comment);
     }
 }
