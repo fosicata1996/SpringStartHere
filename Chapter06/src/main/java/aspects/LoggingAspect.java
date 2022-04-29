@@ -15,8 +15,9 @@ public class LoggingAspect {
 
     private static final Logger logger = Logger.getLogger(LoggingAspect.class.getName());
 
-    @Around("execution(* services.*.*(..))")
-    public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Around("@annotation(ToLog)")
+    public void log(ProceedingJoinPoint joinPoint) throws Throwable {
+        logger.info(" --------------------- ");
         String methodName = joinPoint.getSignature().getName();
         Object[] arguments = joinPoint.getArgs();
         logger.info("Method " + methodName
@@ -32,8 +33,7 @@ public class LoggingAspect {
         logger.info("After");
 
         logger.info("Method executed and returned " + returnedByMethod);
-
-        return "FAILED";
+        logger.info(" --------------------- ");
     }
 
 }
