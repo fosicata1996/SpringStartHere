@@ -1,13 +1,13 @@
-package main;
+package com.example.Chapter07;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Main {
+public class Chapter07Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Main.class, args);
+		SpringApplication.run(Chapter07Application.class, args);
 	}
 
 }
