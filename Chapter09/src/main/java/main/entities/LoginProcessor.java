@@ -1,5 +1,6 @@
 package main.entities;
 
+import main.services.LoggedUserManagementService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -9,6 +10,12 @@ public class LoginProcessor {
 
     private String username;
     private String password;
+
+    private final LoggedUserManagementService loggedUserManagementService;
+
+    public LoginProcessor(LoggedUserManagementService loggedUserManagementService) {
+        this.loggedUserManagementService = loggedUserManagementService;
+    }
 
     public String getUsername() {
         return username;
@@ -27,7 +34,17 @@ public class LoginProcessor {
     }
 
     public boolean login() {
-        return "fosi".equalsIgnoreCase(this.getUsername())
-                && "fosi".equals(this.getPassword());
+        String username = this.getUsername();
+        String password = this.getPassword();
+
+        boolean loginResult = false;
+
+        if ("fosi".equalsIgnoreCase(username)
+                && "fosi".equals(password)) {
+            loggedUserManagementService.setUsername(username);
+            loginResult = true;
+        }
+
+        return loginResult;
     }
 }
