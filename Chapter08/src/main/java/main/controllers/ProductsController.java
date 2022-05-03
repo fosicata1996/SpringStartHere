@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProductsController {
@@ -24,12 +23,7 @@ public class ProductsController {
     }
 
     @PostMapping(path = "/products")
-    public String addProduct(@RequestParam String name,
-                             @RequestParam double price,
-                             Model model) {
-        Product p = new Product();
-        p.setName(name);
-        p.setPrice(price);
+    public String addProduct(Product p, Model model) {
         productService.addProduct(p);
 
         model.addAttribute("products", productService.findAll());
