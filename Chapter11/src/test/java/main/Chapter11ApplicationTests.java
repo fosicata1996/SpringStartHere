@@ -1,4 +1,4 @@
-package Chapter11.Chapter11;
+package main;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
