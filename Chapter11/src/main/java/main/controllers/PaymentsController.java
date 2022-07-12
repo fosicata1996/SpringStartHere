@@ -25,6 +25,8 @@ public class PaymentsController {
 
         payment.setId(UUID.randomUUID().toString());
 
+        payment.setAmount(payment.getAmount() + 1);
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .header("requestId", requestId)
