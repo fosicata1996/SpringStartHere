@@ -18,7 +18,7 @@ public class OpenFeignPaymentsController {
         this.paymentsProxy = paymentsProxy;
     }
 
-    @PostMapping("/payment")
+    @PostMapping("/openfeign/payment")
     public Payment createPayment(@RequestBody Payment payment){
         String requestId = UUID.randomUUID().toString();
         return paymentsProxy.createPayment(requestId, payment);

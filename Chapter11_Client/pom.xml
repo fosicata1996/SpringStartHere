@@ -8,10 +8,10 @@
         <version>2.6.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>Chapter11_OpenFeign</groupId>
-    <artifactId>Chapter11_OpenFeign</artifactId>
+    <groupId>Chapter11_Client</groupId>
+    <artifactId>Chapter11_Client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Chapter11_OpenFeign</name>
+    <name>Chapter11_Client</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
