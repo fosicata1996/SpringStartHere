@@ -29,6 +29,8 @@ public class TransferService
 
         accountRepository.changeAmount(idSender, senderNewAmount);
         accountRepository.changeAmount(idReceiver, receiverNewAmount);
+
+        throw new RuntimeException("Oh no! Fatal error!");
     }
 
     public List<Account> getAllAccounts() {
