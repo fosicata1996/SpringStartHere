@@ -9,10 +9,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,7 +33,7 @@ class TransferServiceUnitTest
     @Test
     @DisplayName("Test the amount is transferred "
         + "from one account to another if no exception occurs")
-    public void moneyTransferHappyFlow()
+    public void moneyTransfer_HappyFlow()
     {
         Account sender = new Account();
         sender.setId(1);
@@ -45,6 +50,23 @@ class TransferServiceUnitTest
 
         verify(accountRepository).changeAmount(1, new BigDecimal(900));
         verify(accountRepository).changeAmount(2, new BigDecimal(1100));
+    }
+
+    @Test
+    public void moneyTransfer_DestinationAccountNotFoundFlow()
+    {
+        Account sender = new Account();
+        sender.setId(1);
+        sender.setAmount(new BigDecimal(1000));
+
+        given(accountRepository.findById(1L)).willReturn(Optional.of(sender));
+        given(accountRepository.findById(2L)).willReturn(Optional.empty());
+
+        assertThrows(AccountNotFoundException.class,
+            () -> transferService.transferMoney(1, 2, new BigDecimal(100)));
+
+        verify(accountRepository, never()).changeAmount(anyLong(), any());
+
     }
 
 }
